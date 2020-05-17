@@ -1,5 +1,7 @@
 import { gql } from "apollo-server";
 
+import { requisitions, items } from "./mockData";
+
 export const StoreSchema = gql`
   """
   A generic Store record. Represents a physical facility.
@@ -21,3 +23,14 @@ export const StoreSchema = gql`
     requisitions: [Requisition]
   }
 `;
+
+export const StoreResolver = {
+  Store: {
+    requisitions: (store: any) =>
+      requisitions.filter((requisition) =>
+        store.requisitions.includes(requisition.id)
+      ),
+    items: (store: any) =>
+      items.filter((item) => store.items.includes(item.id)),
+  },
+};
