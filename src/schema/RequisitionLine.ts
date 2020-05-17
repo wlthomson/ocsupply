@@ -1,5 +1,7 @@
 import { gql } from "apollo-server";
 
+import { items } from "./mockData";
+
 export const RequisitionLineSchema = gql`
   """
   A RequisitionLine record. A line on a requisition.
@@ -15,3 +17,10 @@ export const RequisitionLineSchema = gql`
     quantity: Int
   }
 `;
+
+export const RequisitionLineResolvers = {
+  RequisitionLine: {
+    item: (requisitionLine: any) =>
+      items.find((item) => item.id === requisitionLine.item),
+  },
+};
