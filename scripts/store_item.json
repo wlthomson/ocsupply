@@ -1,0 +1,14 @@
+[
+    {
+        "store": "A",
+        "items": ["ASPI", "PARA", "IBUP"]
+    },
+    {
+        "store": "B",
+        "items": ["ASPI", "PARA"]
+    },
+    {
+        "store": "C",
+        "items": ["IBUP"]
+    }
+]

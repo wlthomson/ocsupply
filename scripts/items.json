@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Aspirin",
+        "code": "ASPI"
+    },
+    {
+        "name": "Paracetamol",
+        "code": "PARA"
+    },
+    {
+        "name": "Ibuprofen",
+        "code": "IBUP"
+    }
+]
