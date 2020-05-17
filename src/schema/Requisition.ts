@@ -4,7 +4,7 @@ export const RequisitionSchema = gql`
   """
   A requisition.
   """
-  type Item {
+  type Requisition {
     "Unique identifier"
     id: ID
 
