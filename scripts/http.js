@@ -48,4 +48,29 @@ const put = (options, data = {}) => new Promise((resolve, reject) => {
     request.end();
 });
 
-module.exports = { get, put };
+const post = (options, data = {}) => new Promise((resolve, reject) => {
+    const body = JSON.stringify(data);
+    const headers = {
+        'Content-Type': 'application/json',
+        'Content-Length': body.length
+    };
+    const buffer = [];
+    const request = http.request({ ...options, headers, method: 'POST'}, response => {
+        response.on('data', data => buffer.push(data));
+        response.on('end', () => {
+            try {
+                const body = Buffer.concat(buffer).toString();
+                resolve(JSON.parse(body));
+            } catch (e) {
+              console.error(e.message);
+            }
+          });
+    })
+    
+    request.on('error', error => reject(error));
+    request.write(body);
+    request.end();
+});
+
+
+module.exports = { get, put, post };
