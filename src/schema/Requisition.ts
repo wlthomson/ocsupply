@@ -1,5 +1,7 @@
 import { gql } from "apollo-server";
 
+import { requisitionLines } from "./mockData";
+
 export const RequisitionSchema = gql`
   """
   A requisition.
@@ -9,9 +11,18 @@ export const RequisitionSchema = gql`
     id: ID
 
     "The lines of this requisition"
-    lines: [RequisitionLines]
+    lines: [RequisitionLine]
 
     "The store this requisition is made in"
     store: Store
   }
 `;
+
+export const RequisitionResolvers = {
+  Requisition: {
+    lines: (requisition: any) =>
+      requisitionLines.filter((requisitionLine) =>
+        requisition.lines.includes(requisitionLine.id)
+      ),
+  },
+};
