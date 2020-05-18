@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Primary",
+        "code": "P",
+        "stores": ["A", "B", "C"]
+    },
+    {
+        "name": "Satellite A",
+        "code": "A",
+        "stores": ["A", "B"]
+    },
+    {
+        "name": "Satellite B",
+        "code": "B",
+        "stores": ["B", "C"]
+    },
+    {
+        "name": "Satellite C",
+        "code": "C",
+        "stores": ["A", "C"]
+    }
+]

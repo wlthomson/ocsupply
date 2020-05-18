@@ -1,0 +1,26 @@
+[
+    {
+        "hostname": "localhost",
+        "port": 5984,
+        "auth": "admin:pass",
+        "site": "P"
+    },
+    {
+        "hostname": "localhost",
+        "port": 5983,
+        "auth": "admin:pass",
+        "site": "A"
+    },
+    {
+        "hostname": "localhost",
+        "port": 5982,
+        "auth": "admin:pass",
+        "site": "B"
+    },
+    {
+        "hostname": "localhost",
+        "port": 5981,
+        "auth": "admin:pass",
+        "site": "C"
+    }
+]
