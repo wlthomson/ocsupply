@@ -9,6 +9,7 @@ const { get, put } = require('./http')
 
 const main = async () => {
     const hosts = JSON.parse(fs.readFileSync('hosts.json', 'utf8'));
+    const sites =  JSON.parse(fs.readFileSync('sites.json', 'utf8'));
     const stores = JSON.parse(fs.readFileSync('stores.json', 'utf8'));
     const items = JSON.parse(fs.readFileSync('items.json', 'utf8'));
     const storeItems = JSON.parse(fs.readFileSync('store_item.json', 'utf8'));
@@ -20,31 +21,30 @@ const main = async () => {
     // Create primary ocsupply database.
     await put({ ...options, path: '/ocsupply' });
 
-    // Setup store keys.
-    await stores.reduce(async (promise, store, index) => {
+    // Setup site keys.
+    await sites.reduce(async (promise, site, index) => {
         await promise;
         const { uuids } = await get({ ...options, path: '/_uuids' });
         const [id] = uuids;
-        stores[index] = { ...store, id };
-    }, Promise.resolve());
-
-    // Add store documents.
-    await stores.reduce(async (promise, store) => {
-        await promise;
-        const { id } = store;
-        await put({ ...options, path: `/ocsupply/${id}` }, store);
+        sites[index] = { ...site, id };
     }, Promise.resolve());
 
     // Add store items.
-    await storeItems.reduce(async (promise, storeItem) => {
+    stores.forEach((store, index) => {
+        const { items: itemCodes } = storeItems.find(storeItem => storeItem.store === store.code);
+        stores[index] = { ...store, items: itemCodes.map(itemCode => items.find(item => item.code === itemCode))};
+    });
+
+    // Add site stores.
+    sites.forEach((site, index) =>
+        sites[index] = { ...site, stores: site.stores.map(code => stores.find(store => store.code === code)) }
+    );
+
+    // Add site documents.
+    await sites.reduce(async (promise, site) => {
         await promise;
-        const { store: storeCode, items: itemCodes  } = storeItem;
-        const { id: storeId } = stores.find(store => store.code === storeCode)
-        // Update store document.
-        const oldStore = await get({ ...options, path: `/ocsupply/${storeId}` });
-        const newItems = itemCodes.map(code => items.find(item => item.code === code));
-        const newStore = { ...oldStore, items: newItems };
-        await put({ ...options, path: `/ocsupply/${storeId}` }, newStore);
+        const { id } =  site;
+        await put({ ...options, path: `/ocsupply/${id}` }, { site });
     }, Promise.resolve());
 }
 
