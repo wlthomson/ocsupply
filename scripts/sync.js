@@ -46,6 +46,7 @@ const main = async () => {
             _id: syncId,
             source: `http://${sourceAuth}@${sourceHostname}:${sourcePort}/ocsupply`,
             target: `http://${targetAuth}@${targetHostname}:${targetPort}/ocsupply`,
+            selector: { site: { code: targetSite } },
             create_target: false,
             continuous: false            
         }
