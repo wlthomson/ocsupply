@@ -1,7 +1,7 @@
 import Express from "express";
 import Path from "path";
 
-const PORT = 4000;
+const PORT = 4001;
 const MESSAGE = `
 \#####################################################\n
 🥳🥳🥳 Server started @ http://localhost:${PORT} 🥳🥳🥳\n

@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { ApolloProvider } from "@apollo/react-hooks";
+import ApolloClient, { gql } from "apollo-boost";
+import { Requisitions } from "./Requisitions";
+import { NewRequisitionButton } from "./NewRequisitionButton";
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000",
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <div className="App">
+        <NewRequisitionButton />
+        <Requisitions />
+      </div>
+    </ApolloProvider>
   );
 }
 
