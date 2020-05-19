@@ -8,6 +8,7 @@ import {
 } from "./RequisitionLine";
 import { ItemSchema } from "./Item";
 import { QuerySchema, QueryResolvers } from "./Query";
+import { MutationSchema, MutationResolver } from "./Mutation";
 
 /**
  * A GraphQL schema should be designed client - first. Disregard how it is stored. Design queries
@@ -36,6 +37,7 @@ import { QuerySchema, QueryResolvers } from "./Query";
 export const typeDefs = [
   ItemSchema,
   QuerySchema,
+  MutationSchema,
   StoreSchema,
   RequisitionSchema,
   RequisitionLineSchema,
@@ -46,4 +48,5 @@ export const resolvers = [
   StoreResolver,
   RequisitionResolvers,
   RequisitionLineResolvers,
+  MutationResolver,
 ];

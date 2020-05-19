@@ -1,6 +1,6 @@
 import { gql } from "apollo-server";
 
-import { requisitionLines } from "./mockData";
+import { requisitionLines, stores } from "./mockData";
 
 export const RequisitionSchema = gql`
   """
@@ -24,5 +24,7 @@ export const RequisitionResolvers = {
       requisitionLines.filter((requisitionLine) =>
         requisition.lines.includes(requisitionLine.id)
       ),
+    store: (requisition: any) =>
+      stores.find((store) => requisition.store === store.id),
   },
 };
