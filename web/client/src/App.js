@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
 import { ApolloProvider } from "@apollo/react-hooks";
-import ApolloClient, { gql } from "apollo-boost";
+import ApolloClient from "apollo-boost";
 import { Requisitions } from "./Requisitions";
 import { NewRequisitionButton } from "./NewRequisitionButton";
 
