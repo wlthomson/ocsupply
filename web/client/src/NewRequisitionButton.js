@@ -15,6 +15,8 @@ export const NewRequisitionButton = () => {
   const [addRequisition, { data }] = useMutation(NEW_REQUISITION);
   return (
     <Button
+      variant="contained"
+      color="primary"
       onClick={() => addRequisition({ variables: { storeId: "store1" } })}
     >
       Add Requisition!
