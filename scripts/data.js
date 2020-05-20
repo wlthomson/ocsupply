@@ -12,12 +12,12 @@ const main = async () => {
     const sites =  JSON.parse(fs.readFileSync('sites.json', 'utf8'));
     const stores = JSON.parse(fs.readFileSync('stores.json', 'utf8'));
     const items = JSON.parse(fs.readFileSync('items.json', 'utf8'));
-    const storeItems = JSON.parse(fs.readFileSync('store_item.json', 'utf8'));
+    const storeItems = JSON.parse(fs.readFileSync('store_items.json', 'utf8'));
+    const requisitions = JSON.parse(fs.readFileSync('requisitions.json', 'utf8'));
 
     // Get primary server details.
     const { hostname, port, auth } = hosts.find(host => host.site === 'P');
     const options = { hostname, port, auth };
-
     // Create primary ocsupply database.
     await put({ ...options, path: '/ocsupply' });
 
@@ -29,10 +29,20 @@ const main = async () => {
         sites[index] = { ...site, id };
     }, Promise.resolve());
 
-    // Add store items.
+    // Add store data.
     stores.forEach((store, index) => {
-        const { items: itemCodes } = storeItems.find(storeItem => storeItem.store === store.code);
-        stores[index] = { ...store, items: itemCodes.map(itemCode => items.find(item => item.code === itemCode))};
+        const { items: thisStoreItemCodes = [] } = storeItems.find(storeItem => storeItem.store === store.code) || {};
+        const thisStoreItems = thisStoreItemCodes.map(itemCode => items.find(item => item.code === itemCode));
+        const thisStoreRequisitions = requisitions.filter(requisition => requisition.fromStore === store.code);
+        const [thisStoreRequestRequisitions, thisStoreResponseRequisitions] = thisStoreRequisitions.reduce(
+            ([requestRequisitions, responseRequisitions], requisition) => {
+                const { number, toStore, type, lines } = requisition;
+                if (type === "request") return [[...requestRequisitions, { number, toStore, lines }], responseRequisitions];
+                if (type === "response") return [requestRequisitions, [...responseRequisitions, { number, toStore, lines }]];
+                return [requestRequisitions, responseRequisitions];
+            }, [[], []]
+        );
+        stores[index] = { ...store, items: thisStoreItems, requestRequsitions: thisStoreRequestRequisitions, responseRequisitions: thisStoreResponseRequisitions };
     });
 
     // Add site stores.

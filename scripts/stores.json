@@ -10,5 +10,9 @@
     {
         "name": "Facility C",
         "code": "C"
+    },
+    {
+        "name": "Facility D",
+        "code": "D"
     }
 ]
