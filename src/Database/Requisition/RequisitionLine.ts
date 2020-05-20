@@ -11,6 +11,6 @@ export class RequisitionLine implements IRequisitionLine {
     this.quantity = quantity;
     this._id = undefined;
     this.item = item;
-    this.type = "requisitionLine",
+    this.type = "requisitionLine";
   }
 }

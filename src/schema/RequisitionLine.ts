@@ -1,6 +1,5 @@
 import { gql } from "apollo-server";
-
-import { items } from "./mockData";
+import { db } from "../index";
 
 export const RequisitionLineSchema = gql`
   """
@@ -20,7 +19,10 @@ export const RequisitionLineSchema = gql`
 
 export const RequisitionLineResolvers = {
   RequisitionLine: {
-    item: (requisitionLine: any) =>
-      items.find((item) => item.id === requisitionLine.item),
+    item: async (requisitionLine: any) => {
+      const result = await db.find({ selector: { _id: requisitionLine.id } });
+
+      return result.docs[0];
+    },
   },
 };

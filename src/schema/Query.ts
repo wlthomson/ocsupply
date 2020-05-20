@@ -1,6 +1,5 @@
 import { gql } from "apollo-server";
-
-import { items, stores, requisitions, requisitionLines } from "./mockData";
+import { db } from "../index";
 
 export const QuerySchema = gql`
   """
@@ -24,23 +23,42 @@ export const QuerySchema = gql`
     getRequisition(id: String): Requisition
 
     "Fetch a particular item by id"
-    getItem(id: String): Item
+    getItem(name: String): Item
 
     "Fetch a particular store by id"
-    getStore(id: String): Store
+    getStore(code: String): Store
   }
 `;
 
 export const QueryResolvers = {
   Query: {
-    items: () => items,
-    stores: () => stores,
-    requisitionLines: () => requisitionLines,
-    requisitions: () => requisitions,
-    getRequisition: (_: any, args: any) =>
-      requisitions.find((req) => req.id === args.id),
-    getItem: (_: any, args: any) => items.find((item) => item.id === args.id),
-    getStore: (_: any, args: any) =>
-      stores.find((store) => store.id === args.id),
+    items: async () => {
+      const result = await db.find({ selector: { type: "item" } });
+      return result.docs;
+    },
+    stores: async () => {
+      const result = await db.find({ selector: { type: "store" } });
+      return result.docs;
+    },
+    requisitionLines: async () => {
+      const result = await db.find({ selector: { type: "requisitionLine" } });
+      return result.docs;
+    },
+    requisitions: async () => {
+      const result = await db.find({ selector: { type: "requisition" } });
+      return result.docs;
+    },
+    getRequisition: async (_: any, args: any) => {
+      const result = await db.find({ selector: { _id: args.id } });
+      return result.docs[0];
+    },
+    getItem: async (_: any, args: any) => {
+      const result = await db.find({ selector: { name: args.name } });
+      return result.docs[0];
+    },
+    getStore: async (_: any, args: any) => {
+      const result = await db.find({ selector: { name: args.name } });
+      return result.docs[0];
+    },
   },
 };
