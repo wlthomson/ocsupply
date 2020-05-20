@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "apollo-server": "^2.13.1",
-    "graphql": "^15.0.0"
+    "graphql": "^15.0.0",
+    "nano": "^8.2.2"
   },
   "devDependencies": {
     "tslint": "^6.1.2",
