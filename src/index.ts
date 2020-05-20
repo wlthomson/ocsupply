@@ -1,12 +1,12 @@
 import { typeDefs, resolvers } from "./schema";
 import { ApolloServer } from "apollo-server";
-import { Store } from "./Database/Store/Store";
+
 import Nano from "nano";
 
 const PORT = process.argv[2] || 4000;
 const COUCH_PORT = process.argv[3] || 5984;
 const COUCH_USERNAME = process.argv[4] || "admin";
-const COUCH_PASSWORD = process.argv[5] || "michael2378";
+const COUCH_PASSWORD = process.argv[5] || "pass";
 const COUCH_DB_NAME = process.argv[6] || "msupply";
 
 const n = Nano(
