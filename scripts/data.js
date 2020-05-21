@@ -30,25 +30,29 @@ const main = async () => {
     // Create sites.
     sites.forEach(async site => {
         const { id: _id, name, code, stores } = site;
-        await ocsupply.insert({ _id, name, code, stores })
+        const type = "site";
+        await ocsupply.insert({ _id, type, name, code, stores })
     })
 
     // Create stores.
     stores.forEach(async store => {
         const { id: _id, name, code, items, request_requisitions, response_requisitions } = store;
-        await ocsupply.insert({ _id, name, code, items, request_requisitions, response_requisitions });
+        const type = "store";
+        await ocsupply.insert({ _id, type, name, code, items, request_requisitions, response_requisitions });
     })
 
     // Create items.
     items.forEach(async item => {
         const { id: _id, name, code } = item;
-        await ocsupply.insert({ _id, name, code });
+        const type = "item";
+        await ocsupply.insert({ _id, type, name, code });
     })
 
     // Create requisitions.
     requisitions.forEach(async requisition => {
         const { id: _id, number, fromStore, toStore, lines } = requisition;
-        await ocsupply.insert({ _id, number, fromStore, toStore, lines })
+        const type = "requisition";
+        await ocsupply.insert({ _id, type, number, fromStore, toStore, lines })
     })
 }
 
