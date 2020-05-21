@@ -1,37 +1,37 @@
 [
     {
+        "id": "requisition_001",
         "number": "001",
         "fromStore": "B",
         "toStore": "A",
-        "type": "request",
-        "lines": [ { "item": "ASPI", "quantity": 1 }, { "item": "PARA", "quantity": 2 }, { "item": "IBU", "quantity": 3 }]
+        "lines": [ { "item": "item_aspi", "quantity": 1 }, { "item": "item_para", "quantity": 2 }, { "item": "item_ibu", "quantity": 3 }]
     },
     {
+        "id": "requisition_002",
         "number": "002",
         "fromStore": "C",
         "toStore": "A",
-        "type": "request",
-        "lines": [ { "item": "ASPI", "quantity": 4 }, { "item": "PARA", "quantity": 5 }, { "item": "IBU", "quantity": 6 }]
+        "lines": [ { "item": "item_aspi", "quantity": 4 }, { "item": "item_para", "quantity": 5 }, { "item": "item_ibu", "quantity": 6 }]
     },
     {
+        "id": "requisition_003",
         "number": "003",
         "fromStore": "D",
         "toStore": "A",
-        "type": "request",
-        "lines": [ { "item": "PARA", "quantity": 7 } ]
+        "lines": [ { "item": "item_para", "quantity": 7 } ]
     },
     {
+        "id": "requisition_004",
         "number": "004",
         "fromStore": "A",
         "toStore": "B",
-        "type": "response",
-        "lines": [ { "item": "ASPI", "quantity": 1 }, { "item": "PARA", "quantity": 2 }, { "item": "IBU", "quantity": 3 }]
+        "lines": [ { "item": "item_aspi", "quantity": 1 }, { "item": "item_para", "quantity": 2 }, { "item": "item_ibu", "quantity": 3 }]
     },
     {
+        "id": "requisition_005",
         "number": "005",
         "fromStore": "A",
-        "toStore": "B",
-        "type": "response",
-        "lines": [ { "item": "ASPI", "quantity": 1 }, { "item": "PARA", "quantity": 2 }, { "item": "IBU", "quantity": 3 }]
+        "toStore": "C",
+        "lines": [ { "item": "item_aspi", "quantity": 1 }, { "item": "item_para", "quantity": 2 }, { "item": "item_ibu", "quantity": 3 }]
     }
 ]
