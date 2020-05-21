@@ -1,32 +1,22 @@
 /**
  * init.js
  * 
- * Initialises CouchDB servers. Run before any other scripts. 
+ * Initialises demo network and containers. Run before any other scripts. 
  */
 
 const fs = require('fs');
-const { spawn } = require('child_process');
+const { spawnSync } = require('child_process');
 
-const main = async () => {
-    const hosts = JSON.parse(fs.readFileSync('hosts.json', 'utf8'));
-    
-    // Create site network.
+const init = async () => {
+    // Create demo network.
     const network = 'susnet';
-    const process = spawn('docker', ['network', 'create', '-d', 'bridge', network]);
-    process.stdout.on("data", data => {
-        console.log(`Network ${network}: ${data}`);
-    });
-    process.stderr.on("data", data => {
-        console.log(`Network ${network}: ${data}`);
-    });
-    process.on('error', (error) => {
-        console.log(`Network ${network} error: ${error.message}`);
-    });
-    process.on("close", code => {
-        console.log(`Network ${network} process existed with code ${code}`);
-    });
+    const { stderr } = spawnSync('docker', ['network', 'create', '-d', 'bridge', network]);
+    const error = stderr.toString().trim();
+    if (error) console.log(error);
 
-    // Spin up CouchDB instances.
+    // Initialise demo sites.
+    const image = 'apache/couchdb:latest'
+    const hosts = JSON.parse(fs.readFileSync('hosts.json', 'utf8'));
     hosts.forEach(host => {
         const { port, auth, site } = host;
         const [user, pass] = auth.split(':');
@@ -46,21 +36,11 @@ const main = async () => {
             args.push(`${port}:5984`);
         }
         args.push('--network')
-        args.push('susnet');
-        const process = spawn('docker', [...args, 'apache/couchdb:latest']);
-        process.stdout.on("data", data => {
-            console.log(`Site ${site}: ${data}`);
-        });
-        process.stderr.on("data", data => {
-            console.log(`Site ${site}: ${data}`);
-        });
-        process.on('error', (error) => {
-            console.log(`Site ${site} error: ${error.message}`);
-        });
-        process.on("close", code => {
-            console.log(`Site ${site} process existed with code ${code}`);
-        });
+        args.push(network);
+        const { stderr } = spawnSync('docker', [...args, image]);
+        const error = stderr.toString().trim();
+        if (error) console.log(error);
     });
 }
 
-main();
+init();
