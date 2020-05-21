@@ -36,14 +36,14 @@ const data = async () => {
 
     // Create sites.
     await forEach(sites, async site => {
-        const { id: _id, name, code, stores } = site;
+        const { id: _id, name, code, stores = [] } = site;
         const type = "site";
         await ocsupply.insert({ _id, type, name, code, stores })
     });
 
     // Create stores.
     await forEach(stores, async store => {
-        const { id: _id, name, code, items, request_requisitions, response_requisitions } = store;
+        const { id: _id, name, code, items = [], request_requisitions = [], response_requisitions = [] } = store;
         const type = "store";
         await ocsupply.insert({ _id, type, name, code, items, request_requisitions, response_requisitions });
     });
@@ -57,9 +57,9 @@ const data = async () => {
 
     // Create requisitions.
     await forEach(requisitions, async requisition => {
-        const { id: _id, number, fromStore, toStore, lines } = requisition;
+        const { id: _id, number, fromStore, toStore, request_id = "", lines = []} = requisition;
         const type = "requisition";
-        await ocsupply.insert({ _id, type, number, fromStore, toStore, lines })
+        await ocsupply.insert({ _id, type, number, fromStore, toStore, request_id, lines })
     })
 }
 
