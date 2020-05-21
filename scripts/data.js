@@ -1,12 +1,19 @@
 /**
  * data.js
  * 
- * Basic proof-of-concept for mapping relational data to a CouchDB document database.
+ * Populates ocsupply primary server with mock data. Run before sync.js.
  */
 
 const fs = require('fs');
 
-const main = async () => {
+const forEach = async (arr, fn) => {
+    arr.reduce(async (promise, curr) => {
+        await promise;
+        fn(curr);
+    }, Promise.resolve());
+}
+
+const data = async () => {
     const hosts = JSON.parse(fs.readFileSync('hosts.json', 'utf8'));
     const sites =  JSON.parse(fs.readFileSync('sites.json', 'utf8'));
     const stores = JSON.parse(fs.readFileSync('stores.json', 'utf8'));
@@ -28,32 +35,32 @@ const main = async () => {
     const ocsupply = await nano.db.use('ocsupply');
 
     // Create sites.
-    sites.forEach(async site => {
+    await forEach(sites, async site => {
         const { id: _id, name, code, stores } = site;
         const type = "site";
         await ocsupply.insert({ _id, type, name, code, stores })
-    })
+    });
 
     // Create stores.
-    stores.forEach(async store => {
+    await forEach(stores, async store => {
         const { id: _id, name, code, items, request_requisitions, response_requisitions } = store;
         const type = "store";
         await ocsupply.insert({ _id, type, name, code, items, request_requisitions, response_requisitions });
-    })
+    });
 
     // Create items.
-    items.forEach(async item => {
+    await forEach(items, async item => {
         const { id: _id, name, code } = item;
         const type = "item";
         await ocsupply.insert({ _id, type, name, code });
-    })
+    });
 
     // Create requisitions.
-    requisitions.forEach(async requisition => {
+    await forEach(requisitions, async requisition => {
         const { id: _id, number, fromStore, toStore, lines } = requisition;
         const type = "requisition";
         await ocsupply.insert({ _id, type, number, fromStore, toStore, lines })
     })
 }
 
-main();
+data();
