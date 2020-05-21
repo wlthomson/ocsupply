@@ -1,22 +1,26 @@
 [
     {
+        "id": "site_p",
         "name": "Primary",
         "code": "P",
-        "stores": ["A", "B", "C"]
+        "stores": ["facility_a", "facility_b", "facility_c"]
     },
     {
+        "id": "site_a",
         "name": "Satellite A",
         "code": "A",
-        "stores": ["A", "B"]
+        "stores": ["facility_a"]
     },
     {
+        "id": "site_b",
         "name": "Satellite B",
         "code": "B",
-        "stores": ["B", "C"]
+        "stores": ["facility_b"]
     },
     {
+        "id": "site_c",
         "name": "Satellite C",
         "code": "C",
-        "stores": ["A", "C"]
+        "stores": ["facility_c", "facility_d"]
     }
 ]

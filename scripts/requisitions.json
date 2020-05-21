@@ -1,0 +1,37 @@
+[
+    {
+        "id": "requisition_001",
+        "number": "001",
+        "fromStore": "B",
+        "toStore": "A",
+        "lines": [ { "item": "item_aspi", "quantity": 1 }, { "item": "item_para", "quantity": 2 }, { "item": "item_ibu", "quantity": 3 }]
+    },
+    {
+        "id": "requisition_002",
+        "number": "002",
+        "fromStore": "C",
+        "toStore": "A",
+        "lines": [ { "item": "item_aspi", "quantity": 4 }, { "item": "item_para", "quantity": 5 }, { "item": "item_ibu", "quantity": 6 }]
+    },
+    {
+        "id": "requisition_003",
+        "number": "003",
+        "fromStore": "D",
+        "toStore": "A",
+        "lines": [ { "item": "item_para", "quantity": 7 } ]
+    },
+    {
+        "id": "requisition_004",
+        "number": "004",
+        "fromStore": "A",
+        "toStore": "B",
+        "lines": [ { "item": "item_aspi", "quantity": 1 }, { "item": "item_para", "quantity": 2 }, { "item": "item_ibu", "quantity": 3 }]
+    },
+    {
+        "id": "requisition_005",
+        "number": "005",
+        "fromStore": "A",
+        "toStore": "C",
+        "lines": [ { "item": "item_aspi", "quantity": 1 }, { "item": "item_para", "quantity": 2 }, { "item": "item_ibu", "quantity": 3 }]
+    }
+]

@@ -5,47 +5,55 @@
  */
 
 const fs = require('fs');
-const { get, put } = require('./http')
 
 const main = async () => {
     const hosts = JSON.parse(fs.readFileSync('hosts.json', 'utf8'));
     const sites =  JSON.parse(fs.readFileSync('sites.json', 'utf8'));
     const stores = JSON.parse(fs.readFileSync('stores.json', 'utf8'));
     const items = JSON.parse(fs.readFileSync('items.json', 'utf8'));
-    const storeItems = JSON.parse(fs.readFileSync('store_item.json', 'utf8'));
+    const requisitions = JSON.parse(fs.readFileSync('requisitions.json', 'utf8'));
 
-    // Get primary server details.
-    const { hostname, port, auth } = hosts.find(host => host.site === 'P');
-    const options = { hostname, port, auth };
+    // Get primary server databases.
+    const { hostname, port, auth } = hosts.find(host => host.site === 'site_p');
+    const nano = require('nano')(`http://${auth}@${hostname}:${port}`);
 
-    // Create primary ocsupply database.
-    await put({ ...options, path: '/ocsupply' });
+    const dbs = await nano.db.list();
 
-    // Setup site keys.
-    await sites.reduce(async (promise, site, index) => {
-        await promise;
-        const { uuids } = await get({ ...options, path: '/_uuids' });
-        const [id] = uuids;
-        sites[index] = { ...site, id };
-    }, Promise.resolve());
+    if (dbs.includes('ocsupply')) await nano.db.destroy('ocsupply');
+    if (dbs.includes('_replicator')) await nano.db.destroy('_replicator');
 
-    // Add store items.
-    stores.forEach((store, index) => {
-        const { items: itemCodes } = storeItems.find(storeItem => storeItem.store === store.code);
-        stores[index] = { ...store, items: itemCodes.map(itemCode => items.find(item => item.code === itemCode))};
-    });
+    await nano.db.create('ocsupply');
+    await nano.db.create('_replicator');
 
-    // Add site stores.
-    sites.forEach((site, index) =>
-        sites[index] = { ...site, stores: site.stores.map(code => stores.find(store => store.code === code)) }
-    );
+    const ocsupply = await nano.db.use('ocsupply');
 
-    // Add site documents.
-    await sites.reduce(async (promise, site) => {
-        await promise;
-        const { id } =  site;
-        await put({ ...options, path: `/ocsupply/${id}` }, { site });
-    }, Promise.resolve());
+    // Create sites.
+    sites.forEach(async site => {
+        const { id: _id, name, code, stores } = site;
+        const type = "site";
+        await ocsupply.insert({ _id, type, name, code, stores })
+    })
+
+    // Create stores.
+    stores.forEach(async store => {
+        const { id: _id, name, code, items, request_requisitions, response_requisitions } = store;
+        const type = "store";
+        await ocsupply.insert({ _id, type, name, code, items, request_requisitions, response_requisitions });
+    })
+
+    // Create items.
+    items.forEach(async item => {
+        const { id: _id, name, code } = item;
+        const type = "item";
+        await ocsupply.insert({ _id, type, name, code });
+    })
+
+    // Create requisitions.
+    requisitions.forEach(async requisition => {
+        const { id: _id, number, fromStore, toStore, lines } = requisition;
+        const type = "requisition";
+        await ocsupply.insert({ _id, type, number, fromStore, toStore, lines })
+    })
 }
 
 main();
