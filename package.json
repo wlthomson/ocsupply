@@ -1,7 +1,22 @@
 {
   "name": "ocsupply",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "build/index.js",
   "author": "Will Thomson <will.tho@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node ."
+  },
+  "dependencies": {
+    "apollo-server": "^2.13.1",
+    "graphql": "^15.0.0",
+    "nano": "^8.2.2"
+  },
+  "devDependencies": {
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.2"
+  }
 }
