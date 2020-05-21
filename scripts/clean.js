@@ -16,7 +16,6 @@ const clean = () => {
     // Remove demo network.
     const network = 'susnet';
     spawnSync('docker', ['network', 'rm', network]);
-    
 }
 
 clean();
