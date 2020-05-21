@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Will Thomson <will.tho@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "nano": "^8.2.2"
+  }
 }

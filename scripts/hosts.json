@@ -3,24 +3,24 @@
         "hostname": "localhost",
         "port": 5984,
         "auth": "admin:pass",
-        "site": "P"
+        "site": "site_p"
     },
     {
         "hostname": "localhost",
         "port": 5983,
         "auth": "admin:pass",
-        "site": "A"
+        "site": "site_a"
     },
     {
         "hostname": "localhost",
         "port": 5982,
         "auth": "admin:pass",
-        "site": "B"
+        "site": "site_b"
     },
     {
         "hostname": "localhost",
         "port": 5981,
         "auth": "admin:pass",
-        "site": "C"
+        "site": "site_c"
     }
 ]
