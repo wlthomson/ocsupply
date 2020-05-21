@@ -22,5 +22,11 @@
         "port": 5981,
         "auth": "admin:pass",
         "site": "site_c"
+    },
+    {
+        "hostname": "localhost",
+        "port": 5980,
+        "auth": "admin:pass",
+        "site": "site_d"
     }
 ]

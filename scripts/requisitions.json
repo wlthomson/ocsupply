@@ -1,37 +1,61 @@
 [
     {
-        "id": "requisition_001",
-        "number": "001",
+        "id": "requisition_1",
+        "number": "1",
         "fromStore": "B",
         "toStore": "A",
-        "lines": [ { "item": "item_aspi", "quantity": 1 }, { "item": "item_para", "quantity": 2 }, { "item": "item_ibu", "quantity": 3 }]
+        "lines": [ { "item": "item_aspi", "quantity": 100 }, { "item": "item_para", "quantity": 200 }]
     },
     {
-        "id": "requisition_002",
-        "number": "002",
+        "id": "requisition_2",
+        "number": "2",
+        "fromStore": "B",
+        "toStore": "A",
+        "lines": [ { "item": "item_aspi", "quantity": 150 }, { "item": "item_para", "quantity": 150 }]
+    },
+    {
+        "id": "requisition_3",
+        "number": "3",
         "fromStore": "C",
         "toStore": "A",
-        "lines": [ { "item": "item_aspi", "quantity": 4 }, { "item": "item_para", "quantity": 5 }, { "item": "item_ibu", "quantity": 6 }]
+        "lines": [ { "item": "item_aspi", "quantity": 300 }, { "item": "item_ibu", "quantity": 400 }]
     },
     {
-        "id": "requisition_003",
-        "number": "003",
+        "id": "requisition_4",
+        "number": "4",
         "fromStore": "D",
         "toStore": "A",
-        "lines": [ { "item": "item_para", "quantity": 7 } ]
+        "lines": [ { "item": "item_para", "quantity": 500 }, { "item": "item_ibu", "quantity": 600 } ]
     },
     {
-        "id": "requisition_004",
-        "number": "004",
+        "id": "requisition_5",
+        "number": "5",
+        "fromStore": "E",
+        "toStore": "A",
+        "lines": [ { "item": "item_aspi", "quantity": 700 } ]
+    },
+    {
+        "id": "requisition_6",
+        "number": "6",
         "fromStore": "A",
         "toStore": "B",
-        "lines": [ { "item": "item_aspi", "quantity": 1 }, { "item": "item_para", "quantity": 2 }, { "item": "item_ibu", "quantity": 3 }]
+        "request_id": "requisition_1",
+        "lines": [ { "item": "item_aspi", "quantity": 100 }, { "item": "item_para", "quantity": 200 } ]
     },
     {
-        "id": "requisition_005",
-        "number": "005",
+        "id": "requisition_7",
+        "number": "7",
         "fromStore": "A",
         "toStore": "C",
-        "lines": [ { "item": "item_aspi", "quantity": 1 }, { "item": "item_para", "quantity": 2 }, { "item": "item_ibu", "quantity": 3 }]
+        "request_id": "requisition_3",
+        "lines": [ { "item": "item_aspi", "quantity": 300 }, { "item": "item_ibu", "quantity": 500 }]
+    },
+    {
+        "id": "requisition_8",
+        "number": "8",
+        "fromStore": "A",
+        "toStore": "D",
+        "request_id": "requisition_4",
+        "lines": [ { "item": "item_para", "quantity": 500 }, { "item": "item_ibu", "quantity": 600 }]
     }
 ]
