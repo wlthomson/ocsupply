@@ -6,15 +6,19 @@
 
 const fs = require('fs');
 const { spawnSync } = require('child_process');
+const { log } = require('./utils.js');
 
 const init = async () => {
     // Create demo network.
+    log('Creating demo network...');
     const network = 'susnet';
     const { stderr } = spawnSync('docker', ['network', 'create', '-d', 'bridge', network]);
     const error = stderr.toString().trim();
     if (error) console.log(error);
+    log('Creating demo network... DONE\n');
 
     // Initialise demo sites.
+    log('Creating demo servers...');
     const image = 'apache/couchdb:latest'
     const hosts = JSON.parse(fs.readFileSync('hosts.json', 'utf8'));
     hosts.forEach(host => {
@@ -41,6 +45,7 @@ const init = async () => {
         const error = stderr.toString().trim();
         if (error) console.log(error);
     });
+    log('Creating demo servers... DONE\n');
 }
 
-init();
+(async () => { try { await init() } catch (err) {} })();
