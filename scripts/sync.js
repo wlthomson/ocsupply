@@ -46,9 +46,13 @@ const main = async () => {
         }, Promise.resolve())
         activeStores.reduce(async (innerPromise, storeId) => {
             await innerPromise;
-            const { request_requisitions: requestRequisitionIds, response_requisitions: responseRequisitionIds, items: itemIds } = stores.find(store => store.id === storeId);
+            const { 
+                request_requisitions: requestRequisitionIds = [],
+                response_requisitions: responseRequisitionIds = [],
+                items: itemIds = []
+            } = stores.find(store => store.id === storeId);
             const syncIds = [storeId, ...requestRequisitionIds, ...responseRequisitionIds, ...itemIds ];
-            const options = { selector: { "$in": syncIds } };
+            const options = { selector: { "_id": { "$in": syncIds } } };
             await nano.db.replicate('ocsupply', `http://${auth}@${satelliteSite}:5984/ocsupply`, options);
         }, Promise.resolve())
     }, Promise.resolve());
