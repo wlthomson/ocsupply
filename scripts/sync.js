@@ -11,8 +11,6 @@ const main = async () => {
     const hosts = JSON.parse(fs.readFileSync('hosts.json', 'utf8'));
     const sites =  JSON.parse(fs.readFileSync('sites.json', 'utf8'));
     const stores = JSON.parse(fs.readFileSync('stores.json', 'utf8'));
-    const items = JSON.parse(fs.readFileSync('items.json', 'utf8'));
-    const requisitions = JSON.parse(fs.readFileSync('requisitions.json', 'utf8'));
 
     // Create satellite site databases.
     const satellites = hosts.filter(host => host.site !== 'site_p');
