@@ -9,49 +9,55 @@ const { put, post } = require('./http')
 
 const main = async () => {
     const hosts = JSON.parse(fs.readFileSync('hosts.json', 'utf8'));
-    const sites = JSON.parse(fs.readFileSync('sites.json', 'utf8'));
+    const sites =  JSON.parse(fs.readFileSync('sites.json', 'utf8'));
+    const stores = JSON.parse(fs.readFileSync('stores.json', 'utf8'));
 
-    // Get primary, satellite server detils.
-    const { primary, satellites } = hosts.reduce(({ primary: primaryHost, satellites: satelliteHosts }, host) => {
-        if (host.site === 'P') return { primary: host, satellites: satelliteHosts };
-        return { primary: primaryHost, satellites: [...satelliteHosts, host] };
-    }, { primary: {}, satellites: [] });
+    // Create satellite site databases.
+    const satellites = hosts.filter(host => host.site !== 'site_p');
 
-    // Create primary replication database.
-    const { hostname, port, auth } = primary;
-    const options = { hostname, port, auth };
-    await put({ ...options, path: '/_replicator' });
+    satellites.reduce(async (promise, satellite) => {
+        await promise; 
 
-    // Create satellite databases.
-    await satellites.reduce(async (promise, host) => {
-        await promise;
-        const { hostname, port, auth } = host;
-        const options = { hostname, port, auth };
-        put({ ...options, path: '/ocsupply' });
-        put({ ...options, path: '/_replicator' });
+        const { hostname, port, auth } = satellite;
+        const nano = require('nano')(`http://${auth}@${hostname}:${port}`);
+        
+        const dbs = await nano.db.list();
+
+        if (dbs.includes('ocsupply')) await nano.db.destroy('ocsupply');
+        if (dbs.includes('_replicator')) await nano.db.destroy('_replicator');
+
+        await nano.db.create('ocsupply');
+        await nano.db.create('_replicator');
+    }, Promise.resolve());
+    
+    // Insert sync documents to primary replicator.
+    const { hostname, port, auth } = hosts.find(host => host.site === 'site_p');
+    const nano = require('nano')(`http://${auth}@${hostname}:${port}`);
+
+    satellites.reduce(async (outerPromise, satellite) => {
+        await outerPromise;
+        const { auth, site: satelliteSite } = satellite;
+        const site = sites.find(site => site.id === satelliteSite);
+        const { stores: activeStores } = site;
+        activeStores.reduce(async (innerPromise, activeStore) => {
+            await innerPromise;
+            const options =  { selector: { _id: activeStore } } 
+            await nano.db.replicate('ocsupply', `http://${auth}@${satelliteSite}:5984/ocsupply`, options);
+        }, Promise.resolve())
+        activeStores.reduce(async (innerPromise, storeId) => {
+            await innerPromise;
+            const { 
+                request_requisitions: requestRequisitionIds = [],
+                response_requisitions: responseRequisitionIds = [],
+                items: itemIds = []
+            } = stores.find(store => store.id === storeId);
+            const syncIds = [storeId, ...requestRequisitionIds, ...responseRequisitionIds, ...itemIds ];
+            const options = { selector: { "_id": { "$in": syncIds } } };
+            await nano.db.replicate('ocsupply', `http://${auth}@${satelliteSite}:5984/ocsupply`, options);
+        }, Promise.resolve())
     }, Promise.resolve());
 
-    // Populate satellite databases.
-    const { hostname: sourceHostname, port: sourcePort, auth: sourceAuth } = primary;
-    await satellites.reduce(async (promise, host) => {
-        await promise;
-        const site = sites.find(site => site.code === host.site);
-        const { stores } = site;
-        const options = { hostname: sourceHostname, port: sourcePort, auth: sourceAuth };
-        const { auth: targetAuth, site: targetSite } = host;
-        const targetHostname = `SITE_${targetSite}`;
-        const syncId = String(new Date().getTime());
-        const targetPort = 5984;
-        const replicationDocument = {
-            _id: syncId,
-            source: `http://${sourceAuth}@${sourceHostname}:${sourcePort}/ocsupply`,
-            target: `http://${targetAuth}@${targetHostname}:${targetPort}/ocsupply`,
-            selector: { site: { code: targetSite } },
-            create_target: false,
-            continuous: false            
-        }
-        await post({ ...options, path: '/_replicator' }, replicationDocument);
-    }, Promise.resolve());
+
 }
 
 main();

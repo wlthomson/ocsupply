@@ -33,7 +33,7 @@ const main = async () => {
         const args = ['run', '-d'];
         if (site) {
             args.push('--name');
-            args.push(`SITE_${site}`);
+            args.push(site);
         }
         if (user && pass) {
             args.push('-e');

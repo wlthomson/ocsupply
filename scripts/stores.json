@@ -1,18 +1,33 @@
 [
     {
+        "id": "facility_a",
         "name": "Facility A",
-        "code": "A"
+        "code": "A",
+        "items": ["item_aspi", "item_para", "item_ibup"],
+        "request_requisitions": [],
+        "response_requisitions": ["requisition_004", "requisition_005"]
     },
     {
+        "id": "facility_b",
         "name": "Facility B",
-        "code": "B"
+        "code": "B",
+        "items": ["item_aspi", "item_para"],
+        "request_requisitions": ["requisition_001"],
+        "response_requisitions": []
     },
     {
+        "id": "facility_c",
         "name": "Facility C",
-        "code": "C"
+        "code": "C",
+        "items": ["item_para", "item_ibup"],
+        "request_requisitions": ["requisition_002"],
+        "response_requisitions": []
     },
     {
+        "id": "facility_d",
         "name": "Facility D",
-        "code": "D"
+        "code": "D",
+        "items": ["item_aspi", "item_ibup"],
+        "request_requisitions": ["requisition_003"]
     }
 ]
