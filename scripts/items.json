@@ -1,17 +1,20 @@
 [
-    {
-        "id": "item_aspi",
-        "name": "Aspirin",
-        "code": "ASPI"
-    },
-    {
-        "id": "item_para",
-        "name": "Paracetamol",
-        "code": "PARA"
-    },
-    {
-        "id": "item_ibu",
-        "name": "Ibuprofen",
-        "code": "IBUP"
-    }
+  {
+    "id": "item_aspi",
+    "type": "item",
+    "name": "Aspirin",
+    "code": "ASPI"
+  },
+  {
+    "id": "item_para",
+    "type": "item",
+    "name": "Paracetamol",
+    "code": "PARA"
+  },
+  {
+    "id": "item_ibu",
+    "type": "item",
+    "name": "Ibuprofen",
+    "code": "IBUP"
+  }
 ]
