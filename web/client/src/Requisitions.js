@@ -12,17 +12,15 @@ import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    maxWidth: 650,
   },
 });
 
 const REQUISITIONS = gql`
   {
     requisitions {
-      id
-      store {
-        name
-      }
+      fromStore
+      toStore
     }
   }
 `;
@@ -31,6 +29,7 @@ export const Requisitions = () => {
   const { loading, error, data } = useQuery(REQUISITIONS, {
     pollInterval: 500,
   });
+
   const classes = useStyles();
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -45,12 +44,15 @@ export const Requisitions = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.requisitions.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell align="right">{row.id}</TableCell>
-              <TableCell align="right">{row.store.name}</TableCell>
-            </TableRow>
-          ))}
+          {data.requisitions.map((row) => {
+            console.log(row);
+            return (
+              <TableRow key={row.id}>
+                <TableCell align="right">{row.fromStore}</TableCell>
+                <TableCell align="right">{row.toStore}</TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

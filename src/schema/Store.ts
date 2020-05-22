@@ -1,4 +1,5 @@
 import { gql } from "apollo-server";
+import { db } from "../index";
 
 export const StoreSchema = gql`
   """
@@ -13,9 +14,35 @@ export const StoreSchema = gql`
 
     "The code of an item"
     code: String
+
+    items: [Item]
+
+    responseRequisitions: [Requisition]
+    requestRequisitions: [Requisition]
   }
 `;
 
 export const StoreResolver = {
-  Store: {},
+  Store: {
+    items: async (store) => {
+      const { items } = store;
+      const itemsResult = await db.find({ selector: { _id: { $in: items } } });
+
+      return itemsResult.docs;
+    },
+    responseRequisitions: async (store) => {
+      const { responseRequisitions } = store;
+      const requisitionsResult = await db.find({
+        selector: { _id: { $in: responseRequisitions } },
+      });
+      return requisitionsResult.docs;
+    },
+    requestRequisitions: async (store) => {
+      const { requestRequisitions } = store;
+      const requisitionsResult = await db.find({
+        selector: { _id: { $in: requestRequisitions } },
+      });
+      return requisitionsResult.docs;
+    },
+  },
 };
