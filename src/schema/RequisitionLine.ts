@@ -19,10 +19,11 @@ export const RequisitionLineSchema = gql`
 
 export const RequisitionLineResolvers = {
   RequisitionLine: {
-    item: async (requisitionLine: any) => {
-      const result = await db.find({ selector: { _id: requisitionLine.id } });
-
-      return result.docs[0];
+    item: async (requisitionLine) => {
+      const itemResult = await db.find({
+        selector: { _id: requisitionLine.item },
+      });
+      return itemResult.docs[0];
     },
   },
 };

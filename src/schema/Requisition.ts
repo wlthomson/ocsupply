@@ -7,6 +7,14 @@ export const RequisitionSchema = gql`
   type Requisition {
     "Unique identifier"
     id: ID
+
+    fromStore: String
+
+    toStore: String
+
+    number: String
+
+    lines: [RequisitionLine]
   }
 `;
 
