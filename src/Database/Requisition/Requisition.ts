@@ -2,11 +2,13 @@ import { IRequisition } from "./IRequisition";
 
 export class Requisition implements IRequisition {
   _id: string;
-  storeId: string;
+  toStore: string;
+  fromStore: string;
   type: string;
 
-  constructor(storeId) {
-    this.storeId = storeId;
+  constructor(toStore, fromStore) {
+    this.toStore = toStore;
+    this.fromStore = fromStore;
     this._id = undefined;
     this.type = "requisition";
   }
