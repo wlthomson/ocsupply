@@ -48,8 +48,8 @@ export const Requisitions = () => {
             console.log(row);
             return (
               <TableRow key={row.id}>
-                <TableCell align="right">{row.fromStore}</TableCell>
-                <TableCell align="right">{row.toStore}</TableCell>
+                <TableCell align="right">{row.fromStoreId}</TableCell>
+                <TableCell align="right">{row.toStoreId}</TableCell>
               </TableRow>
             );
           })}
