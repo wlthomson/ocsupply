@@ -17,35 +17,23 @@ export const MutationResolver = {
       const { storeId } = args;
       const newRequisition = new Requisition(storeId);
       await db.insert(newRequisition);
-
       return newRequisition;
     },
     addRequisitionLine: async (_: any, args: any) => {
-      const { requisitionId, itemId } = args;
-      const result = await db.find({ selector: { _id: itemId } });
+      const { itemId } = args;
       const newRequisitionLine = new RequisitionLine({
         quantity: 0,
-        item: result.docs[0],
+        itemId,
       });
-
       return newRequisitionLine;
     },
     updateRequisitionLineQuantity: async (_: any, args: any) => {
-      const result = await db.find({ selector: { _id: args.id } });
-
-      // HUH WHATS GOING ON TYPE SCRIPT
-      const get = (obj: any) => ({
-        quantity: obj.quantity || 0,
-        item: obj.item || null,
-      });
-
+      const { itemId, quantity } = args;
       const requisitionLine = new RequisitionLine({
-        ...get(result.docs[0]),
-        quantity: args.quantity,
+        itemId,
+        quantity,
       });
-
       await db.insert(requisitionLine);
-
       return requisitionLine;
     },
   },

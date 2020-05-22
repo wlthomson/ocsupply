@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from "apollo-server";
 
-import { StoreSchema, StoreResolver } from "./Store";
+import { StoreSchema, StoreResolvers } from "./Store";
 import { RequisitionSchema, RequisitionResolvers } from "./Requisition";
 import {
   RequisitionLineSchema,
@@ -45,7 +45,7 @@ export const typeDefs = [
 
 export const resolvers = [
   QueryResolvers,
-  StoreResolver,
+  StoreResolvers,
   RequisitionResolvers,
   RequisitionLineResolvers,
   MutationResolver,
