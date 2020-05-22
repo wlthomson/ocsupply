@@ -29,7 +29,6 @@ const sync = async () => {
     const stores = JSON.parse(fs.readFileSync('stores.json', 'utf8'));
     const { hostname, port, auth } = hosts.find(host => host.site === 'site_p');
     const nano = require('nano')(`http://${auth}@${hostname}:${port}`);
-    console.log(satellites);
     await forEach(satellites, async satellite => {
         const { auth, site: satelliteSite } = satellite;
         const site = sites.find(site => site.id === satelliteSite);
@@ -41,7 +40,6 @@ const sync = async () => {
                 itemIds = []
             } = stores.find(store => store.id === storeId);
             const syncIds = [storeId, ...requestRequisitionIds, ...responseRequisitionIds, ...itemIds ];
-            console.log(syncIds);
             const options = { selector: { "_id": { "$in": syncIds } } };
             // Containers on the susnet network all host couchDB on the default port.
             await nano.db.replicate('ocsupply', `http://${auth}@${satelliteSite}:5984/ocsupply`, options);
