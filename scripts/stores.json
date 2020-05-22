@@ -3,7 +3,7 @@
         "id": "facility_a",
         "name": "Facility A",
         "code": "A",
-        "item_ids": ["item_aspi", "item_para", "item_ibup"],
+        "itemIds": ["item_aspi", "item_para", "item_ibup"],
         "responseRequisitionIds": ["requisition_6", "requisition_7", "requisition_8"]
     },
     {
@@ -17,21 +17,21 @@
         "id": "facility_c",
         "name": "Facility C",
         "code": "C",
-        "item_ids": ["item_aspi", "item_ibup"],
+        "itemIds": ["item_aspi", "item_ibup"],
         "requestRequisitionIds": ["requisition_3"]
     },
     {
         "id": "facility_d",
         "name": "Facility D",
         "code": "D",
-        "item_ids": ["item_para", "item_ibup"],
+        "itemIds": ["item_para", "item_ibup"],
         "requestRequisitionIds": ["requisition_4"]
     },
     {
         "id": "facility_e",
         "name": "Facility E",
         "code": "E",
-        "item_ids": ["item_aspi"],
+        "itemIds": ["item_aspi"],
         "requestRequisitionIds": ["requisition_5"]
     }
 ]

@@ -18,7 +18,7 @@
         "number": "3",
         "fromStoreId": "facility_c",
         "toStoreId": "facility_a",
-        "lines": [ { "iteitemIdm_id": "item_aspi", "quantity": 300 }, { "itemId": "item_ibu", "quantity": 400 }]
+        "lines": [ { "itemId": "item_aspi", "quantity": 300 }, { "itemId": "item_ibu", "quantity": 400 }]
     },
     {
         "id": "requisition_4",

@@ -3,30 +3,30 @@
         "id": "site_p",
         "name": "Primary",
         "code": "P",
-        "stores": ["facility_a", "facility_b", "facility_c", "facility_d", "facility_e"]
+        "storeIds": ["facility_a", "facility_b", "facility_c", "facility_d", "facility_e"]
     },
     {
         "id": "site_a",
         "name": "Satellite A",
         "code": "A",
-        "stores": ["facility_a"]
+        "storeIds": ["facility_a"]
     },
     {
         "id": "site_b",
         "name": "Satellite B",
         "code": "B",
-        "stores": ["facility_b"]
+        "storeIds": ["facility_b"]
     },
     {
         "id": "site_c",
         "name": "Satellite C",
         "code": "C",
-        "stores": ["facility_c"]
+        "storeIds": ["facility_c"]
     },
     {
         "id": "site_d",
         "name": "Satellite D",
         "code": "D",
-        "stores": ["facility_d", "facility_e"]
+        "storeIds": ["facility_d", "facility_e"]
     }
 ]
