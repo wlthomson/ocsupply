@@ -31,9 +31,9 @@ const data = async () => {
     });
     const stores = JSON.parse(fs.readFileSync('stores.json', 'utf8'));
     await forEach(stores, async store => {
-        const { id: _id, name, code, items = [], request_requisitions = [], response_requisitions = [] } = store;
+        const { id: _id, name, code, itemIds = [], requestRequisitionIds = [], responseRequisitionIds = [] } = store;
         const type = "store";
-        await ocsupply.insert({ _id, type, name, code, items, request_requisitions, response_requisitions });
+        await ocsupply.insert({ _id, type, name, code, itemIds, requestRequisitionIds, responseRequisitionIds });
     });
     const items = JSON.parse(fs.readFileSync('items.json', 'utf8'));
     await forEach(items, async item => {
@@ -43,9 +43,9 @@ const data = async () => {
     });
     const requisitions = JSON.parse(fs.readFileSync('requisitions.json', 'utf8'));
     await forEach(requisitions, async requisition => {
-        const { id: _id, number, fromStore, toStore, request_id = "", lines = []} = requisition;
+        const { id: _id, number, fromStoreId, toStoreId, requestRequisitionId = "", lines = []} = requisition;
         const type = "requisition";
-        await ocsupply.insert({ _id, type, number, fromStore, toStore, request_id, lines });
+        await ocsupply.insert({ _id, type, number, fromStoreId, toStoreId, requestRequisitionId, lines });
     })
     log('Populating primary server data... DONE\n');
 }
