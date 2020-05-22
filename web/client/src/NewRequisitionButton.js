@@ -5,8 +5,8 @@ import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
 
 const NEW_REQUISITION = gql`
-  mutation AddRequisition($fromStore: String, $toStore: String) {
-    addRequisition(fromStore: $fromStore, toStore: $toStore) {
+  mutation AddRequisition($fromStoreId: String, $toStoreId: String) {
+    addRequisition(fromStoreId: $fromStoreId, toStoreId: $toStoreId) {
       id
     }
   }
@@ -14,26 +14,26 @@ const NEW_REQUISITION = gql`
 
 export const NewRequisitionButton = () => {
   const [addRequisition, { data }] = useMutation(NEW_REQUISITION);
-  const [fromStore, setFromStore] = React.useState("");
-  const [toStore, setToStore] = React.useState("");
+  const [fromStoreId, setFromStore] = React.useState("");
+  const [toStoreId, setToStore] = React.useState("");
   return (
     <>
       <TextField
         label={"fromStore:"}
         onChange={(e) => setFromStore(e.target.value)}
-        value={fromStore}
+        value={fromStoreId}
       />
       <TextField
         label={"toStore:"}
         onChange={(e) => setToStore(e.target.value)}
-        value={toStore}
+        value={toStoreId}
       />
       <Button
         variant="contained"
         color="primary"
         onClick={() =>
           addRequisition({
-            variables: { toStore, fromStore },
+            variables: { toStoreId, fromStoreId },
           })
         }
       >
