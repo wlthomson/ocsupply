@@ -7,8 +7,8 @@ export class Item implements IItem {
   type: string;
 
   constructor({ name, code }) {
-    this.name = name;
     this._id = undefined;
+    this.name = name;
     this.code = code;
     this.type = "item";
   }

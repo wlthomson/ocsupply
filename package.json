@@ -8,7 +8,9 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "node ."
+    "start": "node .",
+    "start-demo": "cd ./scripts && sudo node ./init.js && sudo node ./data.js && sudo node ./sync.js && cd ../",
+    "clean-demo": "cd ./scripts && sudo node ./clean.js && cd ../"
   },
   "dependencies": {
     "apollo-server": "^2.13.1",

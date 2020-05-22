@@ -6,24 +6,25 @@ export const RequisitionLineSchema = gql`
   A RequisitionLine record. A line on a requisition.
   """
   type RequisitionLine {
-    "Unique identifier"
-    id: ID
+    "The ID of the item associated with this requisition line."
+    itemId: ID
 
-    "The name of an Ite"
+    "The item associated with this requisition line."
     item: Item
 
-    "The code of an item"
+    "The requested quantity of the item."
     quantity: Int
   }
 `;
 
 export const RequisitionLineResolvers = {
   RequisitionLine: {
-    item: async (requisitionLine) => {
-      const itemResult = await db.find({
-        selector: { _id: requisitionLine.item },
+    item: async (requisitionLine: any) => {
+      const result = await db.find({
+        selector: { _id: requisitionLine.itemId },
       });
-      return itemResult.docs[0];
+      const [item] = result.docs;
+      return item;
     },
   },
 };

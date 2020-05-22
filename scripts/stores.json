@@ -1,37 +1,41 @@
 [
   {
     "id": "facility_a",
-    "type": "store",
     "name": "Facility A",
     "code": "A",
-    "items": ["item_aspi", "item_para", "item_ibup"],
-    "request_requisitions": [],
-    "response_requisitions": ["requisition_004", "requisition_005"]
+    "itemIds": ["item_aspi", "item_para", "item_ibup"],
+    "responseRequisitionIds": [
+      "requisition_6",
+      "requisition_7",
+      "requisition_8"
+    ]
   },
   {
     "id": "facility_b",
-    "type": "store",
     "name": "Facility B",
     "code": "B",
-    "items": ["item_aspi", "item_para"],
-    "request_requisitions": ["requisition_001"],
-    "response_requisitions": []
+    "itemIds": ["item_aspi", "item_para"],
+    "requestRequisitionIds": ["requisition_1", "requisition_2"]
   },
   {
     "id": "facility_c",
-    "type": "store",
     "name": "Facility C",
     "code": "C",
-    "items": ["item_para", "item_ibup"],
-    "request_requisitions": ["requisition_002"],
-    "response_requisitions": []
+    "itemIds": ["item_aspi", "item_ibup"],
+    "requestRequisitionIds": ["requisition_3"]
   },
   {
     "id": "facility_d",
-    "type": "store",
     "name": "Facility D",
     "code": "D",
-    "items": ["item_aspi", "item_ibup"],
-    "request_requisitions": ["requisition_003"]
+    "itemIds": ["item_para", "item_ibup"],
+    "requestRequisitionIds": ["requisition_4"]
+  },
+  {
+    "id": "facility_e",
+    "name": "Facility E",
+    "code": "E",
+    "itemIds": ["item_aspi"],
+    "requestRequisitionIds": ["requisition_5"]
   }
 ]
