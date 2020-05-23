@@ -3,7 +3,7 @@
         "id": "site_p",
         "name": "Primary",
         "code": "P",
-        "stores": ["facility_a", "facility_b", "facility_c"]
+        "stores": ["facility_a", "facility_b", "facility_c", "facility_d", "facility_e"]
     },
     {
         "id": "site_a",
@@ -21,6 +21,12 @@
         "id": "site_c",
         "name": "Satellite C",
         "code": "C",
-        "stores": ["facility_c", "facility_d"]
+        "stores": ["facility_c"]
+    },
+    {
+        "id": "site_d",
+        "name": "Satellite D",
+        "code": "D",
+        "stores": ["facility_d", "facility_e"]
     }
 ]
