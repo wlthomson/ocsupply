@@ -2,10 +2,11 @@ import React from "react";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import Button from "@material-ui/core/Button";
+import { TextField } from "@material-ui/core";
 
 const NEW_REQUISITION = gql`
-  mutation AddRequisition($storeId: String) {
-    addRequisition(storeId: $storeId) {
+  mutation AddRequisition($fromStoreId: String, $toStoreId: String) {
+    addRequisition(fromStoreId: $fromStoreId, toStoreId: $toStoreId) {
       id
     }
   }
@@ -13,13 +14,31 @@ const NEW_REQUISITION = gql`
 
 export const NewRequisitionButton = () => {
   const [addRequisition, { data }] = useMutation(NEW_REQUISITION);
+  const [fromStoreId, setFromStore] = React.useState("");
+  const [toStoreId, setToStore] = React.useState("");
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => addRequisition({ variables: { storeId: "store1" } })}
-    >
-      Add Requisition!
-    </Button>
+    <>
+      <TextField
+        label={"fromStore:"}
+        onChange={(e) => setFromStore(e.target.value)}
+        value={fromStoreId}
+      />
+      <TextField
+        label={"toStore:"}
+        onChange={(e) => setToStore(e.target.value)}
+        value={toStoreId}
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() =>
+          addRequisition({
+            variables: { toStoreId, fromStoreId },
+          })
+        }
+      >
+        Add Requisition!
+      </Button>
+    </>
   );
 };

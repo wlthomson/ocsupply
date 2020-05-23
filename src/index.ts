@@ -7,7 +7,7 @@ const PORT = process.argv[2] || 4000;
 const COUCH_PORT = process.argv[3] || 5984;
 const COUCH_USERNAME = process.argv[4] || "admin";
 const COUCH_PASSWORD = process.argv[5] || "pass";
-const COUCH_DB_NAME = process.argv[6] || "msupply";
+const COUCH_DB_NAME = process.argv[6] || "ocsupply";
 
 const n = Nano(
   `http://${COUCH_USERNAME}:${COUCH_PASSWORD}@localhost:${COUCH_PORT}`

@@ -1,32 +1,38 @@
 [
-    {
-        "id": "site_p",
-        "name": "Primary",
-        "code": "P",
-        "stores": ["facility_a", "facility_b", "facility_c", "facility_d", "facility_e"]
-    },
-    {
-        "id": "site_a",
-        "name": "Satellite A",
-        "code": "A",
-        "stores": ["facility_a"]
-    },
-    {
-        "id": "site_b",
-        "name": "Satellite B",
-        "code": "B",
-        "stores": ["facility_b"]
-    },
-    {
-        "id": "site_c",
-        "name": "Satellite C",
-        "code": "C",
-        "stores": ["facility_c"]
-    },
-    {
-        "id": "site_d",
-        "name": "Satellite D",
-        "code": "D",
-        "stores": ["facility_d", "facility_e"]
-    }
+  {
+    "id": "site_p",
+    "name": "Primary",
+    "code": "P",
+    "storeIds": [
+      "facility_a",
+      "facility_b",
+      "facility_c",
+      "facility_d",
+      "facility_e"
+    ]
+  },
+  {
+    "id": "site_a",
+    "name": "Satellite A",
+    "code": "A",
+    "storeIds": ["facility_a"]
+  },
+  {
+    "id": "site_b",
+    "name": "Satellite B",
+    "code": "B",
+    "storeIds": ["facility_b"]
+  },
+  {
+    "id": "site_c",
+    "name": "Satellite C",
+    "code": "C",
+    "storeIds": ["facility_c"]
+  },
+  {
+    "id": "site_d",
+    "name": "Satellite D",
+    "code": "D",
+    "storeIds": ["facility_d", "facility_e"]
+  }
 ]

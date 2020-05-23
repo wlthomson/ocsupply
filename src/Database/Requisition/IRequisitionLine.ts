@@ -3,7 +3,7 @@ import { IItem } from "../Item/IItem";
 
 export interface IRequisitionLine extends Nano.MaybeDocument {
   _id: string;
+  itemId: string;
   quantity: number;
-  item: IItem;
   type: string;
 }

@@ -32,12 +32,12 @@ const sync = async () => {
     await forEach(satellites, async satellite => {
         const { auth, site: satelliteSite } = satellite;
         const site = sites.find(site => site.id === satelliteSite);
-        const { stores: activeStores } = site;
-        await forEach(activeStores, async storeId => {
+        const { storeIds: activeStoreIds } = site;
+        await forEach(activeStoreIds, async storeId => {
             const { 
-                request_requisitions: requestRequisitionIds = [],
-                response_requisitions: responseRequisitionIds = [],
-                items: itemIds = []
+                requestRequisitionIds = [],
+                responseRequisitionIds = [],
+                itemIds = []
             } = stores.find(store => store.id === storeId);
             const syncIds = [storeId, ...requestRequisitionIds, ...responseRequisitionIds, ...itemIds ];
             const options = { selector: { "_id": { "$in": syncIds } } };

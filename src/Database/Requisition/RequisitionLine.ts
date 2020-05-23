@@ -3,14 +3,14 @@ import { IItem } from "../Item/IItem";
 
 export class RequisitionLine implements IRequisitionLine {
   _id: string;
+  itemId: string;
   quantity: number;
   type: string;
-  item: IItem;
 
-  constructor({ quantity, item }) {
-    this.quantity = quantity;
+  constructor({ itemId, quantity }) {
     this._id = undefined;
-    this.item = item;
+    this.itemId = itemId;
+    this.quantity = quantity;
     this.type = "requisitionLine";
   }
 }

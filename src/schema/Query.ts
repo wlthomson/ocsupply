@@ -50,15 +50,18 @@ export const QueryResolvers = {
     },
     getRequisition: async (_: any, args: any) => {
       const result = await db.find({ selector: { _id: args.id } });
-      return result.docs[0];
+      const [requisition] = result.docs;
+      return requisition;
     },
     getItem: async (_: any, args: any) => {
       const result = await db.find({ selector: { name: args.name } });
-      return result.docs[0];
+      const [item] = result.docs;
+      return item;
     },
     getStore: async (_: any, args: any) => {
       const result = await db.find({ selector: { name: args.name } });
-      return result.docs[0];
+      const store = result.docs;
+      return store;
     },
   },
 };
