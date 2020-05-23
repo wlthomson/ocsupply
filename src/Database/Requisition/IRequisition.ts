@@ -7,6 +7,6 @@ export interface IRequisition extends Nano.MaybeDocument {
   fromStoreId: string;
   toStoreId: string;
   requestRequisitionId: string;
-  lines: [IRequisitionLine]
+  lines: [IRequisitionLine];
   type: string;
 }

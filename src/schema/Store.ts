@@ -38,17 +38,23 @@ export const StoreSchema = gql`
 export const StoreResolvers = {
   Store: {
     items: async (store: any) => {
-      const result = await db.find({ selector: { _id: { $in: store.itemIds } } });
+      const result = await db.find({
+        selector: { _id: { $in: store.itemIds } },
+      });
       const items = result.docs;
       return items;
     },
     requestRequisitions: async (store: any) => {
-      const result = await db.find({ selector: { _id: { $in: store.requestRequisitionIds } } });
+      const result = await db.find({
+        selector: { _id: { $in: store.requestRequisitionIds } },
+      });
       const requestRequisitions = result.docs;
       return requestRequisitions;
     },
     responseRequisitions: async (store: any) => {
-      const result = await db.find({ selector: { _id: { $in: store.responseRequisitionIds } } });
+      const result = await db.find({
+        selector: { _id: { $in: store.responseRequisitionIds } },
+      });
       const responseRequisitions = result.docs;
       return responseRequisitions;
     },

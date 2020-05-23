@@ -31,14 +31,16 @@ export const RequisitionSchema = gql`
     requestRequisition: Requisition
 
     "The item lines for this requisition."
-    lines: [ RequisitionLine ]
+    lines: [RequisitionLine]
   }
 `;
 
 export const RequisitionResolvers = {
   Requisition: {
     requestRequisition: async (requisition: any) => {
-      const result = await db.find({ selector: { _id: requisition.requestRequisitionId } });
+      const result = await db.find({
+        selector: { _id: requisition.requestRequisitionId },
+      });
       const [requestRequisition] = result.docs;
       return requestRequisition;
     },

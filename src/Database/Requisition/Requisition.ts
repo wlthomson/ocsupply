@@ -7,13 +7,13 @@ export class Requisition implements IRequisition {
   fromStoreId: string;
   toStoreId: string;
   requestRequisitionId: string;
-  lines: [IRequisitionLine]
+  lines: [IRequisitionLine];
   type: string;
 
-  constructor(fromStoreId) {
+  constructor(fromStoreId, toStoreId = "") {
     this._id = undefined;
     this.fromStoreId = fromStoreId;
-    this.toStoreId = "";
+    this.toStoreId = toStoreId;
     this.type = "requisition";
   }
 }
