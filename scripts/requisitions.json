@@ -26,7 +26,7 @@
     "toStoreId": "facility_a",
     "lines": [
       { "itemId": "item_aspi", "quantity": 300 },
-      { "itemId": "item_ibu", "quantity": 400 }
+      { "itemId": "item_ibup", "quantity": 400 }
     ]
   },
   {
@@ -36,7 +36,7 @@
     "toStoreId": "facility_a",
     "lines": [
       { "itemId": "item_para", "quantity": 500 },
-      { "itemId": "item_ibu", "quantity": 600 }
+      { "itemId": "item_ibup", "quantity": 600 }
     ]
   },
   {
@@ -65,7 +65,7 @@
     "requestRequisitionId": "requisition_3",
     "lines": [
       { "itemId": "item_aspi", "quantity": 300 },
-      { "itemId": "item_ibu", "quantity": 500 }
+      { "itemId": "item_ibup", "quantity": 500 }
     ]
   },
   {
@@ -76,7 +76,7 @@
     "requestRequisitionId": "requisition_4",
     "lines": [
       { "itemId": "item_para", "quantity": 500 },
-      { "itemId": "item_ibu", "quantity": 600 }
+      { "itemId": "item_ibup", "quantity": 600 }
     ]
   }
 ]
