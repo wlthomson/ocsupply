@@ -36,7 +36,9 @@ export const NewRequisitionButton = () => {
             variables: { toStoreId, fromStoreId },
           })
         }
-      ></Button>
+      >
+        Generate requisition!
+      </Button>
       <Button
         variant="contained"
         color="primary"
