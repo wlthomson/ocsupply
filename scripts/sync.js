@@ -46,39 +46,48 @@ const sync = async () => {
     const site = sites.find((site) => site.id === satelliteSite);
     const { storeIds: activeStoreIds } = site;
 
-    const satToPrimaryOptions = {
-      continuous: true,
-      selector: { fromStoreId: { $in: activeStoreIds } },
-    };
-
-    await primaryDb.replicate(
-      `http://${auth}@${satelliteSite}:5984/ocsupply`,
-      "ocsupply",
-      satToPrimaryOptions
-    );
-
-    const primaryToSatOptions = {
-      continuous: true,
-      selector: {
-        $or: [
-          { fromStoreId: { $in: activeStoreIds } },
-          { toStoreId: { $in: activeStoreIds } },
-          {
-            $and: [
-              { fromStoreId: { $exists: false } },
-              { toStoreId: { $exists: false } },
-            ],
-          },
-        ],
+    const options = {
+      primaryToSatellite: {
+        continuous: true,
+        selector: {
+          $or: [
+            { fromStoreId: { $in: activeStoreIds } },
+            { $and: [
+                { fromStoreId: { $exists: false } },
+                { toStoreId: { $exists: false } },
+              ],
+            },
+          ],
+        },
+      },
+      satelliteToPrimary: {
+        continuous: true,
+        selector: {
+          $and: [
+            { fromStoreId: { $in: activeStoreIds } },
+            {
+              $not: {
+                toStoreId: { $in: activeStoreIds },
+              },
+            },
+          ],
+        },
       },
     };
 
-    await primaryDb.replicate(
+    await primaryDatabase.replicate(
+      `http://${auth}@${satelliteSite}:5984/ocsupply`,
+      "ocsupply",
+      options.satelliteToPrimary
+    );
+
+    await primaryDatabase.replicate(
       "ocsupply",
       `http://${auth}@${satelliteSite}:5984/ocsupply`,
-      primaryToSatOptions
+      options.primaryToSatellite
     );
   });
+
   log("Creating sync data... DONE\n");
 };
 
