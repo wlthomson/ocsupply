@@ -19,8 +19,12 @@ const useStyles = makeStyles({
 const REQUISITIONS = gql`
   {
     requisitions {
-      fromStore
-      toStore
+      fromStore {
+        name
+      }
+      toStore {
+        name
+      }
     }
   }
 `;
@@ -39,17 +43,22 @@ export const Requisitions = () => {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="right">ID</TableCell>
-            <TableCell align="right">Store Name</TableCell>
+            <TableCell align="right">Number</TableCell>
+            <TableCell align="right">fromStoreId</TableCell>
+            <TableCell align="right">toStoreId</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.requisitions.map((row) => {
-            console.log(row);
+          {data.requisitions.map((row, i) => {
             return (
               <TableRow key={row.id}>
-                <TableCell align="right">{row.fromStoreId}</TableCell>
-                <TableCell align="right">{row.toStoreId}</TableCell>
+                <TableCell align="right">{i}</TableCell>
+                <TableCell align="right">
+                  {row?.fromStore?.name ?? "N/A"}
+                </TableCell>
+                <TableCell align="right">
+                  {row?.toStore?.name ?? "N/A"}
+                </TableCell>
               </TableRow>
             );
           })}

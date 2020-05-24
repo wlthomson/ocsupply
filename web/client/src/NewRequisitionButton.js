@@ -7,7 +7,7 @@ import { TextField } from "@material-ui/core";
 const NEW_REQUISITION = gql`
   mutation AddRequisition($fromStoreId: String, $toStoreId: String) {
     addRequisition(fromStoreId: $fromStoreId, toStoreId: $toStoreId) {
-      id
+      fromStoreId
     }
   }
 `;
@@ -36,8 +36,19 @@ export const NewRequisitionButton = () => {
             variables: { toStoreId, fromStoreId },
           })
         }
+      ></Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          setInterval(() => {
+            addRequisition({
+              variables: { toStoreId, fromStoreId },
+            });
+          }, 5000);
+        }}
       >
-        Add Requisition!
+        Auto generate requisitions!
       </Button>
     </>
   );
