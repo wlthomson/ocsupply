@@ -45,7 +45,12 @@ export const QueryResolvers = {
       return result.docs;
     },
     requisitions: async () => {
-      const result = await db.find({ selector: { type: "requisition" } });
+      const result = await db.find({
+        selector: { type: "requisition" },
+        limit: 999999999,
+      });
+      // tslint:disable-next-line:no-console
+      console.log(result.docs.length);
       return result.docs;
     },
     getRequisition: async (_: any, args: any) => {
