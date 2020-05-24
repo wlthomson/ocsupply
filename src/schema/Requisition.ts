@@ -44,5 +44,19 @@ export const RequisitionResolvers = {
       const [requestRequisition] = result.docs;
       return requestRequisition;
     },
+    fromStore: async (requisition: any) => {
+      const result = await db.find({
+        selector: { _id: requisition.fromStoreId },
+      });
+      const [store] = result.docs;
+      return store;
+    },
+    toStore: async (requisition: any) => {
+      const result = await db.find({
+        selector: { _id: requisition.toStoreId },
+      });
+      const [store] = result.docs;
+      return store;
+    },
   },
 };
