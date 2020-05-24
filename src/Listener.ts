@@ -7,23 +7,23 @@ export class Listener {
     this._nano = nano;
   }
 
-  processDoc(doc: any) {
-    return doc.type === "requisition" && !doc.requestRequisitionId;
-  }
-
   logListen() {
-     // tslint:disable-next-line:no-console
+    // tslint:disable-next-line:no-console
     console.log("Listening for changes...\n");
   }
 
   logRequest(doc: any) {
     // tslint:disable-next-line:no-console
-    console.log(`Detected new request requisition from ${doc.fromStoreId} to ${doc.toStoreId} with id ${doc._id}\n`);
+    console.log(
+      `Detected new request requisition from ${doc.fromStoreId} to ${doc.toStoreId} with id ${doc._id}\n`
+    );
   }
 
   logResponse(doc: any) {
     // tslint:disable-next-line:no-console
-    console.log(`Response requisition with ID ${doc._id} created for request requistion with id ${doc.requestRequisitionId}\n`);
+    console.log(
+      `Response requisition with ID ${doc._id} created for request requistion with id ${doc.requestRequisitionId}\n`
+    );
   }
 
   listen(db) {
@@ -31,7 +31,7 @@ export class Listener {
     const feed = db.follow({ since: "now" });
     feed.on("change", (change) => {
       db.get(change.id).then((doc: any) => {
-        if (this.processDoc(doc)) {
+        if (doc.type === "requisition" && !doc.requestRequisitionId) {
           const requestRequisition = doc;
           this.logRequest(requestRequisition);
           const responseRequisition: Requisition = new Requisition(
@@ -45,7 +45,7 @@ export class Listener {
             responseRequisition.requestRequisitionId = requestRequisition._id;
             responseRequisition.lines = requestRequisition.lines;
             db.insert(responseRequisition).then((responseDoc: any) => {
-                if (responseDoc.ok) this.logResponse(responseRequisition);
+              if (responseDoc.ok) this.logResponse(responseRequisition);
             });
           });
         }
