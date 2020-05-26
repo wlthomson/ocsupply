@@ -49,8 +49,6 @@ export const QueryResolvers = {
         selector: { type: "requisition" },
         limit: 999999999,
       });
-      // tslint:disable-next-line:no-console
-      console.log(result.docs.length);
       return result.docs;
     },
     getRequisition: async (_: any, args: any) => {
